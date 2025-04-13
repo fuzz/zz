@@ -3,9 +3,10 @@
 
 require 'zz'
 
-# Thor is giving us issues, so handle the input text directly
-if ARGV.size > 0
-  text = ARGV.join(' ')
+# Handle command line arguments directly
+if ARGV.size.positive?
+  # Add explicit newline at the end of command line input
+  text = "#{ARGV.join(' ')}\n"
   config = Zz::Config.new
   note = Zz::Note.new(text, config)
 

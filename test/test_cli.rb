@@ -66,5 +66,4 @@ class TestCLI < Minitest::Test
 
     temp_file.unlink
   end
-
 end

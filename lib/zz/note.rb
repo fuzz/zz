@@ -16,7 +16,7 @@ module Zz
     sig { params(content: String, config: Zz::Config).void }
     def initialize(content, config)
       # Add trailing newline if not present for command line input
-      @content = T.let(content.end_with?("\n") ? content : content + "\n", String)
+      @content = T.let(content.end_with?("\n") ? content : "#{content}\n", String)
       @config = T.let(config, Zz::Config)
       @filepath = T.let(generate_filepath, String)
     end

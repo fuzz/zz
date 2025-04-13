@@ -25,9 +25,9 @@ module Zz
                   end
                 else
                   # Combine all arguments as note text
-                  args.join(" ")
+                  args.join(' ')
                 end
-      
+
       process_content(content) ? 0 : 1
     end
 
@@ -39,7 +39,7 @@ module Zz
 
       config = Config.new
       note = Note.new(content, config)
-      
+
       if note.save
         puts note.filepath
         true
@@ -50,18 +50,18 @@ module Zz
 
     sig { returns(T.nilable(String)) }
     def open_editor
-      editor = ENV["EDITOR"] || "vim"
+      editor = ENV['EDITOR'] || 'vim'
       temp_file = "/tmp/zz_#{Time.now.to_i}.md"
-      
+
       # Open editor and wait for it to close
       system("#{editor} #{temp_file}")
-      
+
       if File.exist?(temp_file)
         content = File.read(temp_file)
         File.unlink(temp_file)
         return content
       end
-      
+
       nil
     end
   end
