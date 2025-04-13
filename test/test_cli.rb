@@ -22,7 +22,7 @@ class TestCLI < Minitest::Test
 
   def test_cli_with_text_argument
     cli = Zz::CLI.new
-    cli.default('Hello', 'world', 'this', 'is', 'a', 'test')
+    cli.create('Hello world this is a test')
 
     output = $stdout.string
     assert_match(/Note saved to:/, output)

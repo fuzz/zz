@@ -9,20 +9,33 @@ module Zz
   class CLI < Thor
     extend T::Sig
 
-    desc 'default', 'Create a new note (default)'
-    sig { params(args: T.untyped).returns(T.untyped) }
-    def default(*args)
-      content = if !args.empty?
-                  # Text provided as argument
-                  args.join(' ')
-                elsif !$stdin.tty?
-                  # Text piped from stdin
-                  $stdin.read
-                else
-                  # No text, open editor
-                  open_editor
-                end
+    # Fix for Thor deprecation warning
+    def self.exit_on_failure?
+      true
+    end
 
+    desc 'create TEXT', 'Create a new note with the given text'
+    sig { params(text: T.nilable(String)).returns(T.untyped) }
+    def create(text = nil)
+      if text
+        # Text provided as argument
+        process_content(text)
+      elsif !$stdin.tty?
+        # Text piped from stdin
+        process_content($stdin.read)
+      else
+        # No text, open editor
+        content = open_editor
+        process_content(content) if content
+      end
+    end
+
+    default_task :create
+
+    private
+
+    sig { params(content: String).returns(T.untyped) }
+    def process_content(content)
       return if content.nil? || content.strip.empty?
 
       config = Config.new
@@ -34,10 +47,6 @@ module Zz
         exit 1
       end
     end
-
-    default_task :default
-
-    private
 
     sig { returns(T.nilable(String)) }
     def open_editor

@@ -3,4 +3,13 @@
 
 require 'zz'
 
+if ARGV.length > 0 && !Zz::CLI.commands.keys.include?(ARGV[0])
+  # If first argument is not a known command, assume it's content
+  # Join all arguments to preserve spaces
+  content = ARGV.join(' ')
+  # Replace original ARGV with our command
+  ARGV.clear
+  ARGV << 'create' << content
+end
+
 Zz::CLI.start(ARGV)
