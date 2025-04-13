@@ -58,7 +58,11 @@ Add this to your Neovim configuration:
 
 ```vim
 " Save current buffer with Zz
-command! Zz call system('zz', getline(1, '$'))
+function! SaveToZz()
+  let output = system('zz', join(getline(1, '$'), "\n"))
+  echo "Saved to: " . trim(output)
+endfunction
+command! Zz call SaveToZz()
 ```
 
 Then you can use `:Zz` to save the current buffer as a Zz note.
