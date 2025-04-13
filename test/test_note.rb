@@ -25,7 +25,7 @@ class TestNote < Minitest::Test
 
     # File should exist and contain the content
     assert File.exist?(note.filepath)
-    assert_equal content, File.read(note.filepath)
+    assert_equal "#{content}\n", File.read(note.filepath)
   end
 
   def test_handles_less_than_five_words
@@ -35,6 +35,7 @@ class TestNote < Minitest::Test
 
     assert_match(%r{hello/world_.*\.md$}, note.filepath)
     assert File.exist?(note.filepath)
+    assert_equal "#{content}\n", File.read(note.filepath)
   end
 
   def test_handles_empty_content
@@ -44,6 +45,7 @@ class TestNote < Minitest::Test
 
     assert_match(%r{blank/blank_.*\.md$}, note.filepath)
     assert File.exist?(note.filepath)
+    assert_equal "\n", File.read(note.filepath)
   end
 
   def test_strips_yaml_frontmatter
@@ -53,6 +55,7 @@ class TestNote < Minitest::Test
 
     assert_match(%r{hello/world_this_is_a_.*\.md$}, note.filepath)
     assert File.exist?(note.filepath)
+    assert_equal "#{content}\n", File.read(note.filepath)
   end
 
   def test_handles_filename_conflict
@@ -100,5 +103,6 @@ class TestNote < Minitest::Test
 
     assert_match(%r{uppercase/withspecialchars_and_spaces_.*\.md$}, note.filepath)
     assert File.exist?(note.filepath)
+    assert_equal "#{content}\n", File.read(note.filepath)
   end
 end

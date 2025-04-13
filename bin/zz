@@ -3,13 +3,19 @@
 
 require 'zz'
 
-if ARGV.length > 0 && !Zz::CLI.commands.keys.include?(ARGV[0])
-  # If first argument is not a known command, assume it's content
-  # Join all arguments to preserve spaces
-  content = ARGV.join(' ')
-  # Replace original ARGV with our command
-  ARGV.clear
-  ARGV << 'create' << content
-end
+# Thor is giving us issues, so handle the input text directly
+if ARGV.size > 0
+  text = ARGV.join(' ')
+  config = Zz::Config.new
+  note = Zz::Note.new(text, config)
 
-Zz::CLI.start(ARGV)
+  if note.save
+    puts note.filepath
+    exit 0
+  else
+    exit 1
+  end
+else
+  # No arguments provided, use the CLI handler for stdin/editor
+  exit Zz::CLI.start(ARGV) || 0
+end

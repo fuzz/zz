@@ -2,66 +2,66 @@
 # typed: strict
 
 require 'sorbet-runtime'
-require 'thor'
 
 module Zz
   # Command line interface for Zz
-  class CLI < Thor
+  class CLI
     extend T::Sig
 
-    # Fix for Thor deprecation warning
-    def self.exit_on_failure?
-      true
+    sig { params(args: T::Array[String]).returns(Integer) }
+    def self.start(args)
+      new.run(args)
     end
 
-    desc 'create TEXT', 'Create a new note with the given text'
-    sig { params(text: T.nilable(String)).returns(T.untyped) }
-    def create(text = nil)
-      if text
-        # Text provided as argument
-        process_content(text)
-      elsif !$stdin.tty?
-        # Text piped from stdin
-        process_content($stdin.read)
-      else
-        # No text, open editor
-        content = open_editor
-        process_content(content) if content
-      end
+    sig { params(args: T::Array[String]).returns(Integer) }
+    def run(args)
+      content = if args.empty?
+                  if !$stdin.tty?
+                    # Text piped from stdin
+                    $stdin.read
+                  else
+                    # No text, open editor
+                    open_editor
+                  end
+                else
+                  # Combine all arguments as note text
+                  args.join(" ")
+                end
+      
+      process_content(content) ? 0 : 1
     end
-
-    default_task :create
 
     private
 
-    sig { params(content: String).returns(T.untyped) }
+    sig { params(content: T.nilable(String)).returns(T::Boolean) }
     def process_content(content)
-      return if content.nil? || content.strip.empty?
+      return false if content.nil? || content.strip.empty?
 
       config = Config.new
       note = Note.new(content, config)
-
+      
       if note.save
-        puts "Note saved to: #{note.filepath}"
+        puts note.filepath
+        true
       else
-        exit 1
+        false
       end
     end
 
     sig { returns(T.nilable(String)) }
     def open_editor
-      editor = ENV['EDITOR'] || 'vim'
+      editor = ENV["EDITOR"] || "vim"
       temp_file = "/tmp/zz_#{Time.now.to_i}.md"
-
+      
       # Open editor and wait for it to close
       system("#{editor} #{temp_file}")
-
+      
       if File.exist?(temp_file)
         content = File.read(temp_file)
         File.unlink(temp_file)
         return content
       end
-
+      
       nil
     end
   end
