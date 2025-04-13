@@ -48,7 +48,7 @@ module Zz
 
     sig { params(words: T::Array[String]).returns(String) }
     def extract_directory_name(words)
-      words.empty? ? 'blank' : normalize_path_component(words[0])
+      words.empty? ? 'blank' : normalize_path_component(T.must(words[0]))
     end
 
     sig { params(words: T::Array[String]).returns(String) }
@@ -89,7 +89,7 @@ module Zz
       # Convert to lowercase, remove non-alphanumeric chars, replace spaces with underscore
       normalized = component.downcase.gsub(/[^a-z0-9\s]/, '').gsub(/\s+/, '_')
       # Truncate to avoid filesystem issues
-      normalized[0..63]
+      T.must(normalized[0..63])
     end
   end
 end
