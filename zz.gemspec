@@ -6,12 +6,12 @@ require_relative 'lib/zz/version'
 Gem::Specification.new do |spec|
   spec.name          = 'zz'
   spec.version       = Zz::VERSION
-  spec.authors       = ['Your Name']
-  spec.email         = ['your.email@example.com']
+  spec.authors       = ['Fuzz Leonard']
+  spec.email         = ['ink@fuzz.ink']
 
   spec.summary       = 'Simple markdown note management'
   spec.description   = 'A tool for easily creating and managing markdown notes'
-  spec.homepage      = 'https://github.com/yourusername/zz'
+  spec.homepage      = 'https://github.com/fuzz/zz'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
 

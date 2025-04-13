@@ -1,3 +1,27 @@
 plugins:
   - rubocop-minitest
   - rubocop-rake
+
+AllCops:
+  NewCops: enable
+
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*'
+
+Style/Documentation:
+  Exclude:
+    - 'lib/zz/version.rb'
+    - 'test/**/*'
+
+# Based on RuboCop documentation, we can use gemspec style for dependencies
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+  
+# This cop flags the Dir.exist? check before FileUtils.rm_rf, which is a useful safety check
+Lint/NonAtomicFileOperation:
+  Enabled: false

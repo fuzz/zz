@@ -16,12 +16,12 @@ module Zz
     sig { params(args: T::Array[String]).returns(Integer) }
     def run(args)
       content = if args.empty?
-                  if !$stdin.tty?
-                    # Text piped from stdin
-                    $stdin.read
-                  else
+                  if $stdin.tty?
                     # No text, open editor
                     open_editor
+                  else
+                    # Text piped from stdin
+                    $stdin.read
                   end
                 else
                   # Combine all arguments as note text

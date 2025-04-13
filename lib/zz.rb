@@ -9,4 +9,15 @@ require_relative 'zz/cli'
 
 module Zz
   class Error < StandardError; end
+
+  # Common utility methods for Zz
+  module Utils
+    extend T::Sig
+
+    # Creates a directory and its parent directories if they don't exist
+    sig { params(dir: String).void }
+    def self.ensure_directory_exists(dir)
+      FileUtils.mkdir_p(dir)
+    end
+  end
 end

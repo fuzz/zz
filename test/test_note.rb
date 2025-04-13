@@ -18,43 +18,47 @@ class TestNote < Minitest::Test
   def test_save_creates_file_with_correct_path
     content = 'Hello world this is a test'
     note = Zz::Note.new(content, @config)
+
     assert note.save
 
     # Filepath should include the first word as directory and words 2-5 in filename
     assert_match(%r{hello/world_this_is_a_.*\.md$}, note.filepath)
 
     # File should exist and contain the content
-    assert File.exist?(note.filepath)
+    assert_path_exists note.filepath
     assert_equal "#{content}\n", File.read(note.filepath)
   end
 
   def test_handles_less_than_five_words
     content = 'Hello world'
     note = Zz::Note.new(content, @config)
+
     assert note.save
 
     assert_match(%r{hello/world_.*\.md$}, note.filepath)
-    assert File.exist?(note.filepath)
+    assert_path_exists note.filepath
     assert_equal "#{content}\n", File.read(note.filepath)
   end
 
   def test_handles_empty_content
     content = ''
     note = Zz::Note.new(content, @config)
+
     assert note.save
 
     assert_match(%r{blank/blank_.*\.md$}, note.filepath)
-    assert File.exist?(note.filepath)
+    assert_path_exists note.filepath
     assert_equal "\n", File.read(note.filepath)
   end
 
   def test_strips_yaml_frontmatter
     content = "---\ntitle: Test\n---\nHello world this is a test"
     note = Zz::Note.new(content, @config)
+
     assert note.save
 
     assert_match(%r{hello/world_this_is_a_.*\.md$}, note.filepath)
-    assert File.exist?(note.filepath)
+    assert_path_exists note.filepath
     assert_equal "#{content}\n", File.read(note.filepath)
   end
 
@@ -78,17 +82,19 @@ class TestNote < Minitest::Test
       # Create a note
       content = 'Hello world this is a test'
       note1 = Zz::Note.new(content, @config)
+
       assert note1.save
 
       # Create another note with the same content (should get different filename)
       note2 = Zz::Note.new(content, @config)
+
       assert note2.save
 
       # Check the actual filepaths
       assert_match(%r{hello/world_this_is_a_2025-04-13-00-01-34\.md$}, note1.filepath)
       assert_match(%r{hello/world_this_is_a_1_2025-04-13-00-01-34\.md$}, note2.filepath)
-      assert File.exist?(note1.filepath)
-      assert File.exist?(note2.filepath)
+      assert_path_exists note1.filepath
+      assert_path_exists note2.filepath
     ensure
       # Properly restore Time.now
       Time.singleton_class.send(:remove_method, :now) if Time.singleton_methods.include?(:now)
@@ -99,10 +105,11 @@ class TestNote < Minitest::Test
   def test_normalizes_path_components
     content = 'UPPER-case! With@special#chars and spaces'
     note = Zz::Note.new(content, @config)
+
     assert note.save
 
     assert_match(%r{uppercase/withspecialchars_and_spaces_.*\.md$}, note.filepath)
-    assert File.exist?(note.filepath)
+    assert_path_exists note.filepath
     assert_equal "#{content}\n", File.read(note.filepath)
   end
 end

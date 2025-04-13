@@ -27,11 +27,13 @@ class TestCLI < Minitest::Test
     cli.send(:process_content, 'Hello world this is a test')
 
     output = $stdout.string
+
     assert_match(%r{/}, output, 'Output should be just a path')
 
     # Extract file path from output
     file_path = output.strip
-    assert File.exist?(file_path), "File should exist at path: #{file_path}"
+
+    assert_path_exists file_path, "File should exist at path: #{file_path}"
     assert_equal "Hello world this is a test\n", File.read(file_path), 'File content should match with added newline'
   end
 
@@ -42,7 +44,8 @@ class TestCLI < Minitest::Test
 
     assert_equal 0, status.exitstatus, 'Command should exit successfully'
     file_path = output.strip
-    assert File.exist?(file_path), "File should exist at path: #{file_path}"
+
+    assert_path_exists file_path, "File should exist at path: #{file_path}"
     assert_equal "#{test_content}\n", File.read(file_path), 'File content should match with added newline'
   end
 
@@ -61,7 +64,8 @@ class TestCLI < Minitest::Test
 
     assert_equal 0, status.exitstatus, 'Command should exit successfully'
     file_path = output.strip
-    assert File.exist?(file_path), "File should exist at path: #{file_path}"
+
+    assert_path_exists file_path, "File should exist at path: #{file_path}"
     assert_equal "#{test_content}\n", File.read(file_path), 'File content should match input with added newline'
 
     temp_file.unlink
