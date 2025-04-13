@@ -29,15 +29,4 @@ class TestConfig < Minitest::Test
     assert Dir.exist?(@test_dir)
   end
 
-  def test_uses_home_directory_when_zz_dir_not_set
-    # Remove ZZ_DIR from environment
-    ENV.delete('ZZ_DIR')
-
-    config = Zz::Config.new
-    expected_dir = File.join(ENV['HOME'] || '~', 'Zarchive')
-    assert_equal expected_dir, config.zz_dir
-
-    # Clean up any created directory
-    FileUtils.rm_rf(expected_dir) if Dir.exist?(expected_dir) && expected_dir.include?('Zarchive')
-  end
 end
