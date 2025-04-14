@@ -4,7 +4,7 @@
 require_relative 'lib/zz/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'zz'
+  spec.name          = 'Zz'
   spec.version       = Zz::VERSION
   spec.authors       = ['Fuzz Leonard']
   spec.email         = ['ink@fuzz.ink']
