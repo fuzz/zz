@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'fileutils'
 require 'time'
 
-module Zhuhz
+module Zhuzh
   # Handles creation and storage of notes
   class Note
     extend T::Sig
