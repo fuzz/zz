@@ -42,6 +42,7 @@ module Zhuzh
       file_base = extract_file_base(words)
       timestamp = Time.now.strftime('%Y-%m-%d-%H-%M-%S')
       base_path = File.join(@config.zz_dir, dir_name)
+      Zhuzh::Utils.ensure_directory_exists(base_path)
 
       create_unique_filepath(base_path, file_base, timestamp)
     end
