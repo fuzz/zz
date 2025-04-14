@@ -5,7 +5,7 @@ A tool for easily creating and managing markdown notes.
 ## Installation
 
 ```bash
-gem install zz
+gem install zhuzh
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ When you save and close the editor, the note will be automatically saved.
 zz "This is my super important note I need to write it quick before I forget"
 ```
 
-### Pipe content to zz:
+### Pipe/redirect content to zz:
 
 ```bash
 cat blog_post.txt | zz
@@ -62,10 +62,10 @@ function! SaveToZhuzh()
   let output = system('zz', join(getline(1, '$'), "\n"))
   echo "Saved to: " . trim(output)
 endfunction
-command! Zhuzh call SaveToZhuzh()
+command! Zz call SaveToZhuzh()
 ```
 
-Then you can use `:Zhuzh` to save the current buffer as a Zhuzh note.
+Then you can use `:Zz` to save the current buffer as a Zhuzh note.
 
 ## Development
 
