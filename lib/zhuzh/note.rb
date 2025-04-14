@@ -36,6 +36,8 @@ module Zhuzh
     sig { returns(String) }
     def generate_filepath
       text = strip_frontmatter(@content)
+      # If content starts with a Markdown header, remove the # symbol first
+      text = text.sub(/^#\s*/, '') if text.start_with?('#')
       words = text.strip.split(/\s+/)
 
       dir_name = extract_directory_name(words)
@@ -54,7 +56,7 @@ module Zhuzh
 
     sig { params(words: T::Array[String]).returns(String) }
     def extract_file_base(words)
-      file_words = words[1..4]&.compact || []
+      file_words = words[1..5]&.compact || []
       if file_words.empty?
         'blank'
       else

@@ -91,8 +91,8 @@ class TestNote < Minitest::Test
       assert note2.save
 
       # Check the actual filepaths
-      assert_match(%r{hello/world_this_is_a_2025-04-13-00-01-34\.md$}, note1.filepath)
-      assert_match(%r{hello/world_this_is_a_1_2025-04-13-00-01-34\.md$}, note2.filepath)
+      assert_match(%r{hello/world_this_is_a_test_2025-04-13-00-01-34\.md$}, note1.filepath)
+      assert_match(%r{hello/world_this_is_a_test_1_2025-04-13-00-01-34\.md$}, note2.filepath)
       assert_path_exists note1.filepath
       assert_path_exists note2.filepath
     ensure
@@ -109,6 +109,18 @@ class TestNote < Minitest::Test
     assert note.save
 
     assert_match(%r{uppercase/withspecialchars_and_spaces_.*\.md$}, note.filepath)
+    assert_path_exists note.filepath
+    assert_equal "#{content}\n", File.read(note.filepath)
+  end
+  
+  def test_handles_markdown_headers
+    content = '# North Star Document for Fuzz, Inc'
+    note = Zhuzh::Note.new(content, @config)
+    
+    assert note.save
+    
+    puts "Actual filepath: #{note.filepath}"
+    assert_match(%r{north/star_document_for_fuzz_inc_.*\.md$}, note.filepath)
     assert_path_exists note.filepath
     assert_equal "#{content}\n", File.read(note.filepath)
   end
