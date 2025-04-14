@@ -2,7 +2,7 @@
 # typed: false
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
-require 'zz'
+require 'zhuzh'
 
 require 'minitest/autorun'
 require 'minitest/pride'

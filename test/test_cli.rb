@@ -23,7 +23,7 @@ class TestCLI < Minitest::Test
   end
 
   def test_cli_with_text_argument
-    cli = Zz::CLI.new
+    cli = Zhuzh::CLI.new
     cli.send(:process_content, 'Hello world this is a test')
 
     output = $stdout.string

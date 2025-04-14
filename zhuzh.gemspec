@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 # typed: strict
 
-require_relative 'lib/zz/version'
+require_relative 'lib/zhuzh/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'Zz'
-  spec.version       = Zz::VERSION
+  spec.name          = 'zhuzh'
+  spec.version       = Zhuzh::VERSION
   spec.authors       = ['Fuzz Leonard']
   spec.email         = ['ink@fuzz.ink']
 
   spec.summary       = 'Simple markdown note management'
   spec.description   = 'A tool for easily creating and managing markdown notes'
-  spec.homepage      = 'https://github.com/fuzz/zz'
+  spec.homepage      = 'https://github.com/fuzz/zhuhz'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
 

@@ -2,15 +2,15 @@
 # typed: strict
 
 require 'sorbet-runtime'
-require_relative 'zz/version'
-require_relative 'zz/config'
-require_relative 'zz/note'
-require_relative 'zz/cli'
+require_relative 'zhuzh/version'
+require_relative 'zhuzh/config'
+require_relative 'zhuzh/note'
+require_relative 'zhuzh/cli'
 
-module Zz
+module Zhuzh
   class Error < StandardError; end
 
-  # Common utility methods for Zz
+  # Common utility methods for Zhuhz
   module Utils
     extend T::Sig
 

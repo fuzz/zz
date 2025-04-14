@@ -3,8 +3,8 @@
 
 require 'sorbet-runtime'
 
-module Zz
-  # Command line interface for Zz
+module Zhuzh
+  # Command line interface for Zhuzh
   class CLI
     extend T::Sig
 

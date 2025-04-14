@@ -1,4 +1,4 @@
-# Zz
+# Zhuzh
 
 A tool for easily creating and managing markdown notes.
 
@@ -57,15 +57,15 @@ Notes are organized based on their content:
 Add this to your Neovim configuration:
 
 ```vim
-" Save current buffer with Zz
-function! SaveToZz()
+" Save current buffer with Zhuzh
+function! SaveToZhuzh()
   let output = system('zz', join(getline(1, '$'), "\n"))
   echo "Saved to: " . trim(output)
 endfunction
-command! Zz call SaveToZz()
+command! Zhuzh call SaveToZhuzh()
 ```
 
-Then you can use `:Zz` to save the current buffer as a Zz note.
+Then you can use `:Zhuzh` to save the current buffer as a Zhuzh note.
 
 ## Development
 

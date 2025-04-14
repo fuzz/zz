@@ -3,7 +3,7 @@
 
 require 'sorbet-runtime'
 
-module Zz
+module Zhuzh
   extend T::Sig
 
   VERSION = T.let('0.1.0', String)

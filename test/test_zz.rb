@@ -3,8 +3,8 @@
 
 require 'test_helper'
 
-class TestZz < Minitest::Test
+class TestZhuzh < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::Zz::VERSION
+    refute_nil ::Zhuzh::VERSION
   end
 end

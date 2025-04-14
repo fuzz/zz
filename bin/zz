@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'zz'
+require 'zhuzh'
 
 # Handle command line arguments directly
 if ARGV.size.positive?
   # Add explicit newline at the end of command line input
   text = "#{ARGV.join(' ')}\n"
-  config = Zz::Config.new
-  note = Zz::Note.new(text, config)
+  config = Zhuzh::Config.new
+  note = Zhuzh::Note.new(text, config)
 
   if note.save
     puts note.filepath
@@ -18,5 +18,5 @@ if ARGV.size.positive?
   end
 else
   # No arguments provided, use the CLI handler for stdin/editor
-  exit Zz::CLI.start(ARGV) || 0
+  exit Zhuzh::CLI.start(ARGV) || 0
 end

@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'fileutils'
 require 'time'
 
-module Zz
+module Zhuhz
   # Handles creation and storage of notes
   class Note
     extend T::Sig
@@ -13,17 +13,17 @@ module Zz
     sig { returns(String) }
     attr_reader :content, :filepath
 
-    sig { params(content: String, config: Zz::Config).void }
+    sig { params(content: String, config: Zhuzh::Config).void }
     def initialize(content, config)
       # Add trailing newline if not present for command line input
       @content = T.let(content.end_with?("\n") ? content : "#{content}\n", String)
-      @config = T.let(config, Zz::Config)
+      @config = T.let(config, Zhuzh::Config)
       @filepath = T.let(generate_filepath, String)
     end
 
     sig { returns(T::Boolean) }
     def save
-      Zz::Utils.ensure_directory_exists(File.dirname(@filepath))
+      Zhuzh::Utils.ensure_directory_exists(File.dirname(@filepath))
       File.write(@filepath, @content)
       true
     rescue StandardError => e

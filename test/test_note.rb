@@ -8,7 +8,7 @@ class TestNote < Minitest::Test
 
   def setup
     setup_test_environment
-    @config = Zz::Config.new
+    @config = Zhuzh::Config.new
   end
 
   def teardown
@@ -17,7 +17,7 @@ class TestNote < Minitest::Test
 
   def test_save_creates_file_with_correct_path
     content = 'Hello world this is a test'
-    note = Zz::Note.new(content, @config)
+    note = Zhuzh::Note.new(content, @config)
 
     assert note.save
 
@@ -31,7 +31,7 @@ class TestNote < Minitest::Test
 
   def test_handles_less_than_five_words
     content = 'Hello world'
-    note = Zz::Note.new(content, @config)
+    note = Zhuzh::Note.new(content, @config)
 
     assert note.save
 
@@ -42,7 +42,7 @@ class TestNote < Minitest::Test
 
   def test_handles_empty_content
     content = ''
-    note = Zz::Note.new(content, @config)
+    note = Zhuzh::Note.new(content, @config)
 
     assert note.save
 
@@ -53,7 +53,7 @@ class TestNote < Minitest::Test
 
   def test_strips_yaml_frontmatter
     content = "---\ntitle: Test\n---\nHello world this is a test"
-    note = Zz::Note.new(content, @config)
+    note = Zhuzh::Note.new(content, @config)
 
     assert note.save
 
@@ -81,12 +81,12 @@ class TestNote < Minitest::Test
 
       # Create a note
       content = 'Hello world this is a test'
-      note1 = Zz::Note.new(content, @config)
+      note1 = Zhuzh::Note.new(content, @config)
 
       assert note1.save
 
       # Create another note with the same content (should get different filename)
-      note2 = Zz::Note.new(content, @config)
+      note2 = Zhuzh::Note.new(content, @config)
 
       assert note2.save
 
@@ -104,7 +104,7 @@ class TestNote < Minitest::Test
 
   def test_normalizes_path_components
     content = 'UPPER-case! With@special#chars and spaces'
-    note = Zz::Note.new(content, @config)
+    note = Zhuzh::Note.new(content, @config)
 
     assert note.save
 

@@ -4,7 +4,7 @@
 require 'sorbet-runtime'
 require 'fileutils'
 
-module Zz
+module Zhuzh
   # Manages configuration and directory settings
   class Config
     extend T::Sig
@@ -15,7 +15,7 @@ module Zz
     sig { void }
     def initialize
       @zz_dir = T.let(determine_zz_dir, String)
-      Zz::Utils.ensure_directory_exists(@zz_dir)
+      Zhuzh::Utils.ensure_directory_exists(@zz_dir)
     end
 
     private
